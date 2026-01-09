@@ -1,81 +1,56 @@
-# Projetounicesumar app
+# Cofrin (Flet)
 
-## Run the app
+Aplicacao desktop/web de controle financeiro pessoal, construida com Flet. Permite organizar entradas, saidas, poupanca, categorias e subcategorias, alem de acompanhar um dashboard com graficos e resumo mensal.
 
-### uv
+## Pre-visualizacoes
+![Tela de login](src/assets/previews/tela_login.png)
+![Dashboard](src/assets/previews/tela_dashboard.png)
+![Lista de categorias](src/assets/previews/tela_categorias.png)
+![Nova movimentacao](src/assets/previews/tela_adicionar_movimentacao.png)
+![Nova recorrencia](src/assets/previews/tela_adicionar_recorrencia.png)
 
-Run as a desktop app:
+## Funcionalidades
+- Autenticacao com cadastro, login e sessao persistida no `client_storage`.
+- Dashboard com cartoes de ganhos, despesas, poupanca e balanco mensal, grafico de 4 meses e resumo das ultimas movimentacoes.
+- Movimentacoes com filtros por periodo (mes atual, ultimos 3/12 meses ou todo o historico), paginacao, criacao/edicao/remocao e suporte a poupanca.
+- Movimentacoes recorrentes com data inicial, duracao opcional e opcao de desativar.
+- Gestao de categorias e subcategorias com icones, cores e paginacao.
+- Armazenamento local em SQLite (`storage/data/cofrin_database.db`) criado automaticamente na primeira execucao.
 
+## Requisitos
+- Python 3.9+
+- [uv](https://github.com/astral-sh/uv) ou [Poetry](https://python-poetry.org/) (opcional, escolha um fluxo)
+- Flet 0.28.3 (definido em `pyproject.toml`)
+
+## Executando
+### Com uv
 ```
-uv run flet run
+uv sync
+uv run flet run          # desktop
+uv run flet run --web    # navegador
 ```
 
-Run as a web app:
-
-```
-uv run flet run --web
-```
-
-### Poetry
-
-Install dependencies from `pyproject.toml`:
-
+### Com Poetry
 ```
 poetry install
+poetry run flet run          # desktop
+poetry run flet run --web    # navegador
 ```
 
-Run as a desktop app:
+## Estrutura (resumo)
+- `src/main.py`: inicializacao do app, rotas e sessao.
+- `src/Views/`: telas de Login, Registro e Dashboard.
+- `src/Views/AppViews/`: dashboard, movimentacoes (recorrentes e pontuais), categorias e subcategorias.
+- `src/Models/`: modelos de dominio (`Usuario`, `Operacao`, `Recorrencia`, `Categoria`, `SubCategoria`).
+- `src/Context/DbContext.py`: criacao e conexao com o SQLite.
+- `src/Services/AuthService.py`: autenticacao e persistencia da sessao.
+- `storage/data/`: base local (`cofrin_database.db`). Delete este arquivo para resetar dados.
 
-```
-poetry run flet run
-```
+## Build / distribuicao
+- Android: `flet build apk -v`
+- iOS: `flet build ipa -v`
+- macOS: `flet build macos -v`
+- Linux: `flet build linux -v`
+- Windows: `flet build windows -v`
 
-Run as a web app:
-
-```
-poetry run flet run --web
-```
-
-For more details on running the app, refer to the [Getting Started Guide](https://flet.dev/docs/getting-started/).
-
-## Build the app
-
-### Android
-
-```
-flet build apk -v
-```
-
-For more details on building and signing `.apk` or `.aab`, refer to the [Android Packaging Guide](https://flet.dev/docs/publish/android/).
-
-### iOS
-
-```
-flet build ipa -v
-```
-
-For more details on building and signing `.ipa`, refer to the [iOS Packaging Guide](https://flet.dev/docs/publish/ios/).
-
-### macOS
-
-```
-flet build macos -v
-```
-
-For more details on building macOS package, refer to the [macOS Packaging Guide](https://flet.dev/docs/publish/macos/).
-
-### Linux
-
-```
-flet build linux -v
-```
-
-For more details on building Linux package, refer to the [Linux Packaging Guide](https://flet.dev/docs/publish/linux/).
-
-### Windows
-
-```
-flet build windows -v
-```
-
-For more details on building Windows package, refer to the [Windows Packaging Guide](https://flet.dev/docs/publish/windows/).
+Consulte a documentacao do Flet para detalhes de assinatura e publicacao.
